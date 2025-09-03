@@ -1,0 +1,60 @@
+[global]
+    frame_color = "#1F1F1F"
+    separator_color = "#101221"
+    origin = top-center
+    padding = 10
+    show_indicators = true
+    icon_position = left
+    frame_width = 1
+    font = MesloLGS NF 13
+    format = "%s\n%b"
+    sticky_history = yes
+    corner_radius = 17
+    history_length = 10
+    layer = overlay
+    transparency = 10
+    dmenu = /usr/bin/dmenu -p dunst
+    browser = /usr/bin/xdg-open
+    icon_path = /usr/share/icons/Tela-blue-dark/scalable/apps/:/usr/share/icons/Tela-blue-dark/symbolic/status/:/usr/share/icons/Tela-blue-dark/16/panel/:/usr/share/icons/Tela-blue-dark/16/actions:/usr/share/icons/Tela-blue-dark/16/devices/
+    always_run_script = true
+    corner_radius = 10
+    force_xwayland = false
+    
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = close_current
+    mouse_right_click = do_action, close_current
+    
+[volume]
+    appname = changevolume
+    history_ignore = yes
+
+[light]
+    appname = changelight
+    history_ignore = yes
+
+[muted]
+    category = mute.sound
+    appname = changemute
+    history_ignore = yes
+
+[base16_low]
+    msg_urgency = "low"
+    background = "#1F1F1F"
+    foreground = "#cccccc"
+    timeout = 5
+
+[base16_normal]
+    msg_urgency = "normal"
+    background = "#1F1F1F"
+    foreground = "#cccccc"
+    timeout = 7
+
+[base16_critical]
+    msg_urgency = "critical"
+    background = "#e74856"
+    foreground = "#dfdfdf"
+
+
+[speech]
+    summary = *espeak*
+    script = /home/brayan/.config/dunst/say.sh

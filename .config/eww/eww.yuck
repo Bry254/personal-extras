@@ -1,0 +1,153 @@
+(defwindow example
+  :monitor 0
+  :geometry (geometry :x "1%"
+    :y "1%"
+    :width "20%"
+    :height "35%"
+  :anchor "bottom right")
+  :stacking "overlay"
+  :windowtype "dock"
+  :wm-ignore false
+  (box :orientation "vertical"
+    :class "widget-container"
+    (box :orientation "horizontal"
+    (label :text baticon)
+      (label :text "󰫯 󰫿 󰫮 󰬆 󰫮 󰫻")
+      (label :text temp)
+        (label :text hora)
+        )
+        (box :orientation "horizontal"
+        :class "widget-row" 
+        (row-action :name wifilevel
+          :cmd "bash /home/brayan/.config/eww/script_panel.sh wifi-s"
+          :cmd2 "nohup iwgtk &"
+        )
+        (row-action :name bluelevel
+          :cmd "bash /home/brayan/.config/eww/script_panel.sh blue-set"
+          :cmd2 "nohup blueman-manager &"
+        )
+      )
+      (box :orientation "horizontal"
+      :class "widget-row"
+      (row-action :name hostlevel
+        :cmd "bash /home/brayan/.config/eww/script_panel.sh host-set &"
+        :cmd2 "bash /home/brayan/.config/eww/script_panel.sh host-gui"
+      )
+      (box :orientation "horizontal"
+      :class "widget-row"
+      (toggle_button :name "󰝬" :cmd "bash /home/brayan/.config/eww/script_panel.sh sunset")
+      (toggle_button :name alive :cmd "bash /home/brayan/.config/eww/script_panel.sh alive-set")
+    )
+  )
+  (label :text getip)
+  (label :text medianame :limit-width 25)
+  (box :orientation "horizontal"
+      :class "widget-row"
+      (toggle_button :name "󰁑"
+      :cmd "bash /home/brayan/.config/eww/script_panel.sh media-past"
+      )
+      (toggle_button :name "󰏨"
+        :cmd "bash /home/brayan/.config/eww/script_panel.sh media-play"
+      )
+      (toggle_button :name "󰁘"
+        :cmd "bash /home/brayan/.config/eww/script_panel.sh media-next"
+      )
+  )
+
+    (scale :value lightllevel  :class "barra" :onchange "brightnessctl s {}%")
+    (scale :value volumelevel  :class "barra" :onchange "pamixer --set-volume {} --allow-boost")
+    (box :orientation "horizontal"
+        (button :onclick "nohup pavucontrol &" "")
+        (button :onclick `nohup kitty -e sh -c "wl-paste | qrencode -t ANSI256 && read -p ..." &` "󰐲")
+        (button :onclick "bash /home/brayan/.config/eww/script_panel.sh record-set" recordlevel)
+        (button :onclick "nohup nwg-look &" "")
+        (button :onclick "nohup wcm &" "󰒓")
+        (button :onclick "nohup kitty -e sudo pacman -Syu --noconfirm & " "")
+    )
+  )
+)
+
+(defpoll ramlevel :interval "2s"
+  :initial "RAM"
+`bash /home/brayan/.config/eww/script_panel.sh ram`)
+
+(defpoll wifilevel :interval "2s"
+  :initial "󰤮 WIFI"
+`bash /home/brayan/.config/eww/script_panel.sh wifi-get`)
+
+(defpoll recordlevel :interval "2s"
+  :initial ""
+`bash /home/brayan/.config/eww/script_panel.sh record-get`)
+
+(defpoll bluelevel :interval "2s"
+  :initial "initial-value"
+`bash /home/brayan/.config/eww/script_panel.sh blue-get`)
+
+(defpoll hostlevel :interval "2s"
+  :initial "initial-value"
+`bash /home/brayan/.config/eww/script_panel.sh host-get`)
+
+(defpoll medianame :interval "1s"
+  :initial " CANCION "
+`bash /home/brayan/.config/eww/script_panel.sh media-get`)
+
+(defpoll temp :interval "2s"
+  :initial ""
+`bash /home/brayan/.config/eww/script_panel.sh temp`)
+
+(defpoll volumelevel :interval "2s"
+  :initial 50
+`pamixer --get-volume`)
+
+(defpoll lightllevel :interval "2s" :initial 10
+  `bash /home/brayan/.config/eww/script_panel.sh light`)
+
+(defpoll baticon :interval "2s"
+  :initial ""
+  `bash /home/brayan/.config/eww/script_panel.sh bat`)
+
+(defpoll alive :interval "2s"
+  :initial "?"
+  `bash /home/brayan/.config/eww/script_panel.sh alive-get`)
+
+(defpoll getip :interval "2s"
+  :initial "127.0.0.1"
+  `bash /home/brayan/.config/eww/script_panel.sh get-ip`)
+
+
+(defpoll mediaicon :interval "2s"
+  :initial "noblenote"
+  `bash /home/brayan/.config/eww/script_panel.sh media-icon`)
+
+(defpoll batlevel :interval "2s"
+  :initial "100"
+  `cat /sys/class/power_supply/BAT*/capacity`)
+
+(defpoll hora :interval "2s"
+  :initiat "00:00pm"
+  `date '+%I:%M%P'`)
+
+
+(defwidget toggle_button [name cmd]
+  (button
+    :onclick cmd
+    :class "widget-button"
+    name
+  )
+)
+
+(defwidget row-action [name cmd cmd2]
+  (box :orientation "horizontal" :space-evenly false
+    (button-left :name name :cmd cmd)
+    (button_right :cmd cmd2))
+)
+
+(defwidget button-left [name cmd]
+  (button :onclick cmd :class "button-left" name)
+)
+
+(defwidget button_right [cmd]
+  (button :hexpand false :onclick cmd :class "button-right" "" )
+)
+
+(include "./volumen.yuck")

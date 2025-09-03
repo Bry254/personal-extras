@@ -1,0 +1,39 @@
+[global]
+frame_color = "#cccccc"
+separator_color = "#cccccc"
+origin = top-center
+transparency = 20
+padding = 12
+show_indicators = true
+icon_position = left
+icon_path = /usr/share/icons/Papirus-Dark/
+frame_width = 1
+font = FiraCode Nerd Font 10
+format = "<b>%s</b>\n%b"
+sticky_history = yes
+corner_radius = 10
+
+[history_ignore]
+    appname = changevolume
+    history_ignore = yes
+    appname = changelight
+    history_ignore = yes
+
+[base16_low]
+    msg_urgency = "low"
+    background = "#424242"
+    foreground = "#cccccc"
+    new_icon = bell
+
+[base16_normal]
+    msg_urgency = "normal"
+    background = "#424242"
+    foreground = "#cccccc"
+    new_icon = bell
+
+[base16_critical]
+    msg_urgency = "critical"
+    background = "#e74856"
+    foreground = "#dfdfdf"
+
+#1a1b26
