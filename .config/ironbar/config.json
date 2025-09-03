@@ -1,0 +1,110 @@
+{
+  "position": "bottom",
+  "height": 26,
+  "start": [
+
+  ],
+  "center": [
+    {
+      "type" : "launcher",
+      "show_names": false,
+      "show_icons": true,
+      "truncate.mode":"end",
+      "truncate.length": 10
+  }
+  ],
+  "end": [
+    {
+      "type": "tray",
+      "direction": "h",
+      "icon_size" : 25
+    },
+    {
+    "type": "clipboard",
+    "max_items": 10,
+    "truncate": {
+      "mode": "end",
+      "length": 50
+    }
+  },
+    {
+      "type": "volume",
+      "format": "{percentage}%",
+      "max_volume": 150,
+      "icons": {
+        "volume_high": "",
+        "volume_medium": "",
+        "volume_low": "",  
+        "muted": ""
+      }
+    },
+    {
+      "type" :"custom",
+      "bar": [
+        {
+          "label": "<span font-size='12pt'>{{2000:bash /home/brayan/.config/ironbar/menu.sh estado}} {{2000:bash /home/brayan/.config/ironbar/menu.sh wifi}}</span> ",
+          "on_click": "!eww open example --toggle",
+          "type": "button"
+        }
+      ]
+    },
+    {
+      "type":"label",
+      "label": "{{2000:bash /home/brayan/.config/ironbar/menu.sh hour}}"
+    },
+    {
+      "bar": [
+        {
+          "on_click": "popup:toggle",
+          "label": "  ",
+          "name": "power-btn",
+          "type": "button"
+        }
+      ],
+      "class": "power-menu",
+      "popup": [
+        {
+          "orientation": "vertical",
+          "type": "box",
+          "widgets": [
+            {
+              "label": "Power menu",
+              "name": "header",
+              "type": "label"
+            },
+            {
+              "type": "box",
+              "widgets": [
+                {
+                  "class": "power-btn",
+                  "on_click": "!shutdown now",
+                  "label": "<span font-size='40pt'></span>",
+                  "type": "button"
+                },
+                {
+                  "class": "power-btn",
+                  "on_click": "!reboot",
+                  "label": "<span font-size='40pt'></span>",
+                  "type": "button"
+                },
+                {
+                  "class": "power-btn",
+                  "on_click": "!hyprlock",
+                  "label": "<span font-size='40pt'></span>",
+                  "type": "button"
+                },
+                {
+                  "class": "power-btn",
+                  "on_click": "!wayland-logout",
+                  "label": "<span font-size='40pt'>W</span>",
+                  "type": "button"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "type": "custom"
+    }
+  ]
+}
